@@ -1,8 +1,20 @@
 # flask-github-signature
 
 [![Python package](https://github.com/pabluk/flask-github-signature/workflows/Python%20package/badge.svg)](https://github.com/pabluk/flask-github-signature/actions?query=workflow%3A%22Python+package%22)
+[![PyPI](https://img.shields.io/pypi/v/flask-github-signature)](https://pypi.org/project/flask-github-signature/)
+
 
 A Flask view decorator to verify [Github's webhook signatures](https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/securing-your-webhooks).
+
+# Installation
+
+## Using pip
+
+To get the latest version from pypi.org:
+
+```console
+pip install flask-github-signature
+```
 
 # Usage
 
