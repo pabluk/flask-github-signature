@@ -20,3 +20,15 @@ app = Flask(__name__)
 def hello_world():
     return "Hello, World!"
 ```
+
+# Testing
+
+If you want to test, play or contribute to this repo:
+
+```console
+git clone git@github.com:pabluk/flask-github-signature.git
+cd flask-github-signature/
+pip install -r requirements.txt
+pip install -e .
+python -m unittest tests/test_main.py
+```
