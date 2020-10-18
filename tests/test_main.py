@@ -1,9 +1,5 @@
 import os
 import unittest
-
-# This env var is need before importing the module
-os.environ["GH_WEBHOOK_SECRET"] = "xyz"
-
 import flask
 from flask_github_signature import (
     compute_signature,
@@ -13,6 +9,8 @@ from flask_github_signature import (
 
 
 app = flask.Flask(__name__)
+
+os.environ["GH_WEBHOOK_SECRET"] = "xyz"
 
 
 class TestSignatures(unittest.TestCase):
@@ -50,7 +48,6 @@ class TestViewDecorator(unittest.TestCase):
         }
         data = b'{"zen": "Responsive is better than fast.", "hook_id": 1111111}'
         with app.test_request_context(method="POST", data=data, headers=headers):
-            req = flask.request
 
             @verify_signature
             def fn():
@@ -64,7 +61,6 @@ class TestViewDecorator(unittest.TestCase):
         }
         data = b'{"zen": "Responsive is better than fast.", "hook_id": 1111111}'
         with app.test_request_context(method="POST", data=data, headers=headers):
-            req = flask.request
 
             @verify_signature
             def fn():
@@ -72,7 +68,6 @@ class TestViewDecorator(unittest.TestCase):
 
             message, status_code = fn()
             self.assertEqual(status_code, 400)
-
 
     def test_verify_signature_malformed(self):
         headers = {
@@ -80,7 +75,6 @@ class TestViewDecorator(unittest.TestCase):
         }
         data = b'{"zen": "Responsive is better than fast.", "hook_id": 1111111}'
         with app.test_request_context(method="POST", data=data, headers=headers):
-            req = flask.request
 
             @verify_signature
             def fn():
@@ -88,13 +82,11 @@ class TestViewDecorator(unittest.TestCase):
 
             message, status_code = fn()
             self.assertEqual(status_code, 400)
-
 
     def test_no_gh_header(self):
         headers = {}
         data = b'{"zen": "Responsive is better than fast.", "hook_id": 1111111}'
         with app.test_request_context(method="POST", data=data, headers=headers):
-            req = flask.request
 
             @verify_signature
             def fn():
@@ -102,7 +94,6 @@ class TestViewDecorator(unittest.TestCase):
 
             message, status_code = fn()
             self.assertEqual(status_code, 400)
-
 
     def test_no_post_method(self):
         headers = {
@@ -110,7 +101,6 @@ class TestViewDecorator(unittest.TestCase):
         }
         data = b'{"zen": "Responsive is better than fast.", "hook_id": 1111111}'
         with app.test_request_context(method="GET", data=data, headers=headers):
-            req = flask.request
 
             @verify_signature
             def fn():
