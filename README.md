@@ -4,6 +4,10 @@ A Flask view decorator to verify Github's webhook signatures.
 
 # Usage
 
+```console
+export GH_WEBHOOK_SECRET="xyz"
+```
+
 ```python
 from flask import Flask
 from flask_github_signature import verify_signature 
