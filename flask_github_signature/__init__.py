@@ -24,7 +24,7 @@ def compute_signature(secret, payload):
 def get_github_signature(req):
     """Extracts Github's payload signature from request's headers."""
     gh_signature_header = req.headers.get("X-Hub-Signature-256")
-    if gh_signature_header is not None:
+    if req.method == "POST" and gh_signature_header is not None:
         return gh_signature_header.replace("sha256=", "")
     return None
 
@@ -40,7 +40,7 @@ def verify_signature(f):
         payload = request.get_data()
         signature = compute_signature(GH_WEBHOOK_SECRET, payload)
         signature_gh = get_github_signature(request)
-        if signature_is_valid(signature, signature_gh):
+        if signature_gh is not None and signature_is_valid(signature, signature_gh):
             return f(*args, **kwargs)
         else:
             return "Signatures didn't match!", 400
