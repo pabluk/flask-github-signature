@@ -5,7 +5,11 @@ import unittest
 os.environ["GH_WEBHOOK_SECRET"] = "xyz"
 
 import flask
-from flask_github_signature import compute_signature, get_github_signature
+from flask_github_signature import (
+    compute_signature,
+    get_github_signature,
+    verify_signature,
+)
 
 
 app = flask.Flask(__name__)
@@ -30,6 +34,13 @@ class TestGithubRequest(unittest.TestCase):
             )
             signature = get_github_signature(req)
             self.assertEqual(signature, expected)
+
+    def test_get_github_signature_no_header(self):
+        headers = {}
+        with app.test_request_context(method="POST", headers=headers):
+            req = flask.request
+            signature = get_github_signature(req)
+            self.assertIsNone(signature)
 
 
 if __name__ == "__main__":

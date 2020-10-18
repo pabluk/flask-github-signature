@@ -24,8 +24,9 @@ def compute_signature(secret, payload):
 def get_github_signature(req):
     """Extracts Github's payload signature from request's headers."""
     gh_signature_header = req.headers.get("X-Hub-Signature-256")
-    gh_signature = gh_signature_header.replace("sha256=", "")
-    return gh_signature
+    if gh_signature_header is not None:
+        return gh_signature_header.replace("sha256=", "")
+    return None
 
 
 def signature_is_valid(a, b):
