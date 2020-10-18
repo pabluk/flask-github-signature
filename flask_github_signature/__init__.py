@@ -9,7 +9,10 @@ import hmac
 from functools import wraps
 from flask import request, abort
 
-SECRET = os.environ["WEBHOOK_SECRET"]
+GH_WEBHOOK_SECRET = os.environ.get("GH_WEBHOOK_SECRET")
+
+if not GH_WEBHOOK_SECRET:
+    raise ValueError("No GH_WEBHOOK_SECRET configured.")
 
 
 def compute_signature(secret, payload):
@@ -34,7 +37,7 @@ def verify_signature(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         payload = request.get_data()
-        signature = compute_signature(SECRET, payload)
+        signature = compute_signature(GH_WEBHOOK_SECRET, payload)
         signature_gh = get_github_signature(request)
         if signature_is_valid(signature, signature_gh):
             return f(*args, **kwargs)
