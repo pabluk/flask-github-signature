@@ -1,5 +1,7 @@
 # flask-github-signature
 
+[![Python package](https://github.com/pabluk/flask-github-signature/workflows/Python%20package/badge.svg)](https://github.com/pabluk/flask-github-signature/actions?query=workflow%3A%22Python+package%22)
+
 A Flask view decorator to verify Github's webhook signatures.
 
 # Usage
