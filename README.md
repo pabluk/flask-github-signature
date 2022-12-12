@@ -1,6 +1,6 @@
 # flask-github-signature
 
-[![Python package](https://github.com/pabluk/flask-github-signature/workflows/Python%20package/badge.svg)](https://github.com/pabluk/flask-github-signature/actions?query=workflow%3A%22Python+package%22)
+[![Python package](https://github.com/pabluk/flask-github-signature/actions/workflows/python-package.yml/badge.svg)](https://github.com/pabluk/flask-github-signature/actions/workflows/python-package.yml)
 [![PyPI](https://img.shields.io/pypi/v/flask-github-signature)](https://pypi.org/project/flask-github-signature/)
 
 
