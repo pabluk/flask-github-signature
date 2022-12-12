@@ -23,17 +23,48 @@ export GH_WEBHOOK_SECRET="xyz"
 ```
 
 ```python
+# app.py
 from flask import Flask
-from flask_github_signature import verify_signature 
+from flask_github_signature import verify_signature
 
 app = Flask(__name__)
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/webhook", methods=["POST"])
 @verify_signature
-def hello_world():
-    return "Hello, World!"
+def webhook():
+    return "Payload signature verified."
 ```
+
+run the previous Flask app with:
+
+```console
+flask run
+```
+
+and test it with:
+
+```console
+curl --request POST \
+  --header "X-Hub-Signature-256: sha256=eba50596a17c2c8fbdbc5c68223422fe41d5310bea51ffdc461430bce0386c54" \
+  --header "Content-Type: application/json" \
+  --data '{}' \
+  http://localhost:5000/webhook
+```
+
+## Signing a test payload
+
+If you want to test with another payload you can generate a signature using:
+```python
+>>> import os
+>>> from flask_github_signature import compute_signature
+>>> 
+>>> secret = os.environ["GH_WEBHOOK_SECRET"]
+>>> compute_signature(secret, b'{"message": "An example"}')
+'04886433fda851ca66181cecbd9c283ba677468ba361b0a0a7ba57a867102b46'
+>>> 
+```
+when using a signature on a header don't forget to append `sha256=` to it.
 
 # Testing
 
