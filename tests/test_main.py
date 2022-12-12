@@ -22,14 +22,10 @@ class TestSignatures(unittest.TestCase):
 
 class TestGithubRequest(unittest.TestCase):
     def test_get_github_signature(self):
-        headers = {
-            "X-Hub-Signature-256": "sha256=eba50596a17c2c8fbdbc5c68223422fe41d5310bea51ffdc461430bce0386c54"
-        }
+        headers = {"X-Hub-Signature-256": "sha256=eba50596a17c2c8fbdbc5c68223422fe41d5310bea51ffdc461430bce0386c54"}
         with app.test_request_context(method="POST", headers=headers):
             req = flask.request
-            expected = (
-                "eba50596a17c2c8fbdbc5c68223422fe41d5310bea51ffdc461430bce0386c54"
-            )
+            expected = "eba50596a17c2c8fbdbc5c68223422fe41d5310bea51ffdc461430bce0386c54"
             signature = get_github_signature(req)
             self.assertEqual(signature, expected)
 
