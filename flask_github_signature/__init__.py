@@ -38,11 +38,11 @@ def verify_signature(f):
         if request.method != "POST":
             return "Signature verification is only supported on POST method!", 400
         payload = request.get_data()
-        signature = compute_signature(gh_webhook_secret, payload)
         signature_gh = get_github_signature(request)
         if signature_gh is None:
             return "Missing signature header!", 400
         else:
+            signature = compute_signature(gh_webhook_secret, payload)
             if signature_is_valid(signature, signature_gh):
                 return f(*args, **kwargs)
             else:
