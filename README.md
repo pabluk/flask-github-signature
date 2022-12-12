@@ -74,6 +74,6 @@ If you want to test, play or contribute to this repo:
 git clone git@github.com:pabluk/flask-github-signature.git
 cd flask-github-signature/
 pip install -r requirements.txt
-pip install -e .
-python -m unittest tests/test_main.py
+pip install -r requirements-dev.txt
+pytest -v
 ```
