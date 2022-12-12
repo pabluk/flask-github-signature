@@ -40,9 +40,12 @@ def verify_signature(f):
         payload = request.get_data()
         signature = compute_signature(gh_webhook_secret, payload)
         signature_gh = get_github_signature(request)
-        if signature_gh is not None and signature_is_valid(signature, signature_gh):
-            return f(*args, **kwargs)
+        if signature_gh is None:
+            return "Missing signature header!", 400
         else:
-            return "Signatures didn't match!", 400
+            if signature_is_valid(signature, signature_gh):
+                return f(*args, **kwargs)
+            else:
+                return "Signatures didn't match!", 400
 
     return decorated_function

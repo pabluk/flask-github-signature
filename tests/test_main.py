@@ -96,7 +96,7 @@ class TestViewDecorator(unittest.TestCase):
 
             message, status_code = fn()
             self.assertEqual(status_code, 400)
-            self.assertEqual(message, "Signatures didn't match!")
+            self.assertEqual(message, "Missing signature header!")
 
     def test_no_post_method(self):
         headers = {
