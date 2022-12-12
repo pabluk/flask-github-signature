@@ -111,7 +111,7 @@ class TestViewDecorator(unittest.TestCase):
 
             message, status_code = fn()
             self.assertEqual(status_code, 400)
-            self.assertEqual(message, "Signatures didn't match!")
+            self.assertEqual(message, "Signature verification is only supported on POST method!")
 
 
 if __name__ == "__main__":
