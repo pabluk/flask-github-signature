@@ -68,6 +68,7 @@ class TestViewDecorator(unittest.TestCase):
 
             message, status_code = fn()
             self.assertEqual(status_code, 400)
+            self.assertEqual(message, "Signatures didn't match!")
 
     def test_verify_signature_malformed(self):
         headers = {
@@ -82,6 +83,7 @@ class TestViewDecorator(unittest.TestCase):
 
             message, status_code = fn()
             self.assertEqual(status_code, 400)
+            self.assertEqual(message, "Signatures didn't match!")
 
     def test_no_gh_header(self):
         headers = {}
@@ -94,6 +96,7 @@ class TestViewDecorator(unittest.TestCase):
 
             message, status_code = fn()
             self.assertEqual(status_code, 400)
+            self.assertEqual(message, "Signatures didn't match!")
 
     def test_no_post_method(self):
         headers = {
@@ -108,6 +111,7 @@ class TestViewDecorator(unittest.TestCase):
 
             message, status_code = fn()
             self.assertEqual(status_code, 400)
+            self.assertEqual(message, "Signatures didn't match!")
 
 
 if __name__ == "__main__":
