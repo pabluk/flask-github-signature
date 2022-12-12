@@ -77,3 +77,7 @@ pip install -r requirements.txt
 pip install -r requirements-dev.txt
 pytest -v
 ```
+
+```console
+black --line-length=127 tests/ flask_github_signature/
+```
