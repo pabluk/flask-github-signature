@@ -83,7 +83,7 @@ class TestViewDecorator(unittest.TestCase):
 
             message, status_code = fn()
             self.assertEqual(status_code, 400)
-            self.assertEqual(message, "Signatures didn't match!")
+            self.assertEqual(message, "Signature content isn't valid!")
 
     def test_no_gh_header(self):
         headers = {}
