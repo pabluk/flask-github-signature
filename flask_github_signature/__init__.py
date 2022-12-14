@@ -53,7 +53,7 @@ def verify_signature(f):
             if signature_is_valid(signature, signature_gh):
                 return f(*args, **kwargs)
             else:
-                msg = "Signatures didn't match!"
+                msg = f"Signature don't match: {signature} != {signature_gh}"
                 logger.error(msg)
                 return msg, 400
         else:
