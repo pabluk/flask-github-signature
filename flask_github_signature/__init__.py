@@ -12,6 +12,7 @@ from flask import request
 
 logger = logging.getLogger(__name__)
 
+
 def compute_signature(secret, payload):
     """Returns hmac's hexdigest using SHA256"""
     computed = hmac.new(secret.encode("utf-8"), payload, "SHA256")

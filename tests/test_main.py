@@ -64,7 +64,9 @@ class TestViewDecorator(unittest.TestCase):
 
             message, status_code = fn()
             self.assertEqual(status_code, 400)
-            self.assertEqual(message, "Signatures don't match: a60cd2167b32e1d7e906ba3829ffd9ac63f04a18a58cd0f5faa4d3f84c554ec5 != xxxxxxx")
+            self.assertEqual(
+                message, "Signatures don't match: a60cd2167b32e1d7e906ba3829ffd9ac63f04a18a58cd0f5faa4d3f84c554ec5 != xxxxxxx"
+            )
 
     def test_verify_signature_malformed(self):
         headers = {
