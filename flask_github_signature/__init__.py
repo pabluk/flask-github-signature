@@ -6,9 +6,11 @@ For more details see https://docs.github.com/en/free-pro-team@latest/developers/
 
 import os
 import hmac
+import logging
 from functools import wraps
 from flask import request
 
+logger = logging.getLogger(__name__)
 
 def compute_signature(secret, payload):
     """Returns hmac's hexdigest using SHA256"""
@@ -37,9 +39,13 @@ def verify_signature(f):
         if not gh_webhook_secret:
             raise ValueError("No GH_WEBHOOK_SECRET configured.")
         if request.method != "POST":
-            return "Signature verification is only supported on POST method!", 400
+            msg = "Signature verification is only supported on POST method!"
+            logger.error(msg)
+            return msg, 400
         if "X-Hub-Signature-256" not in request.headers:
-            return "Missing signature header!", 400
+            msg = "Missing signature header!"
+            logger.error(msg)
+            return msg, 400
         signature_gh = get_github_signature(request)
         if signature_gh is not None:
             payload = request.get_data()
@@ -47,8 +53,12 @@ def verify_signature(f):
             if signature_is_valid(signature, signature_gh):
                 return f(*args, **kwargs)
             else:
-                return "Signatures didn't match!", 400
+                msg = "Signatures didn't match!"
+                logger.error(msg)
+                return msg, 400
         else:
-            return "Signature content isn't valid!", 400
+            msg = "Signature content isn't valid!"
+            logger.error(msg)
+            return msg, 400
 
     return decorated_function
