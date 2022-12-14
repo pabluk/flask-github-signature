@@ -7,7 +7,7 @@ with open("README.md") as file:
 
 setup(
     name="flask-github-signature",
-    version="0.1.0",
+    version="0.1.1",
     author="Pablo Seminario",
     author_email="pablo@seminar.io",
     url="https://github.com/pabluk/flask-github-signature",
